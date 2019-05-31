@@ -12,12 +12,13 @@ export default class CardFlip extends Component<Props> {
 
   constructor(props) {
     super(props);
+    let side = (props.side) ? props.side : 0;
     this.state ={
       duration: 5000,
-      side: (props.side) ? props.side : 0,
+      side,
       sides: [],
-      progress: new Animated.Value(0),
-      rotation: new Animated.ValueXY({x: 50, y: 50}),
+      progress: new Animated.Value(side === 0 ? 0 : 100),
+      rotation: new Animated.ValueXY(side === 0 ? {x: 50, y: 50}:{x: 50, y: 100}),
       zoom: new Animated.Value(0),
       rotateOrientation: '',
       flipDirection: 'y'
@@ -25,6 +26,7 @@ export default class CardFlip extends Component<Props> {
   }
 
   componentDidMount(){
+
     this.setState({
       duration: this.props.duration,
       flipZoom: this.props.flipZoom,
