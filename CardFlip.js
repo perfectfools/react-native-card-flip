@@ -291,12 +291,28 @@ export default class CardFlip extends Component<Props> {
     }
     else
     {
-      // cardB Y-rotation
-      const bYRotation = rotation.y.interpolate({
-        inputRange: [0, 50, 100, 150],
-        outputRange: ['0deg', '180deg','0deg', '-180deg'],
-        extrapolate: 'clamp',
-      });
+        let bYRotation;
+      if (Platform.OS === 'ios') {
+        // cardB Y-rotation
+        bYRotation = rotation.y.interpolate({
+          inputRange: [0, 50, 100, 150],
+          outputRange: ['0deg', '180deg', '0deg', '-180deg'],
+          extrapolate: 'clamp'
+        })
+      } else {
+        // cardB Y-rotation
+        bYRotation = rotation.y.interpolate({
+          inputRange: [0, 50, 100, 150],
+          outputRange: ['0deg', '-180deg', '0deg', '180deg'],
+          extrapolate: 'clamp'
+        })
+      }
+      // // cardB Y-rotation
+      // const bYRotation = rotation.y.interpolate({
+      //   inputRange: [0, 50, 100, 150],
+      //   outputRange: ['0deg', '180deg','0deg', '-180deg'],
+      //   extrapolate: 'clamp',
+      // });
       sideBTransform.transform.push({ rotateY: bYRotation })
     }
     return sideBTransform;
