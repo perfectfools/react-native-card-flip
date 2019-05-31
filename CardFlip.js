@@ -14,7 +14,7 @@ export default class CardFlip extends Component<Props> {
     super(props);
     this.state ={
       duration: 5000,
-      side: 0,
+      side: (props.side) ? props.side : 0,
       sides: [],
       progress: new Animated.Value(0),
       rotation: new Animated.ValueXY({x: 50, y: 50}),
