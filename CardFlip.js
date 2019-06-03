@@ -20,17 +20,17 @@ export default class CardFlip extends Component<Props> {
       progress: new Animated.Value(side === 0 ? 0 : 100),
       rotation: new Animated.ValueXY(side === 0 ? {x: 50, y: 50}:{x: 50, y: 100}),
       zoom: new Animated.Value(0),
-      rotateOrientation: '',
-      flipDirection: 'y'
+      rotateOrientation: (props.flipDirection) ? props.flipDirection : '',
+      flipDirection: (props.flipDirection) ? props.flipDirection : 'y'
     }
   }
 
   componentDidMount(){
-
     this.setState({
       duration: this.props.duration,
       flipZoom: this.props.flipZoom,
-      sides: this.props.children
+      sides: this.props.children,
+      flipDirection: (this.props.flipDirection) ? this.props.flipDirection : 'y'
     });
   }
 
@@ -88,6 +88,34 @@ export default class CardFlip extends Component<Props> {
       }
     ));
     Animated.sequence(sequence).start();
+  }
+
+  flipIn(){
+    const { rotation, side } = this.state;
+    const sequence = [];
+    sequence.push(Animated.timing(
+      rotation,
+      {
+        toValue: {
+          x: 0,
+          y: 150,
+        },
+        duration:500,
+        useNativeDriver: true,
+      }
+    ));
+   sequence.push(Animated.timing(
+      rotation,
+      {
+        toValue: {
+          x: 0,
+          y: 100,
+        },
+        duration:500,
+        useNativeDriver: true,
+      }
+    ));
+    Animated.sequence(sequence).start(); 
   }
 
   jiggle(customConfig = {}){
