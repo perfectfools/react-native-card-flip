@@ -133,7 +133,7 @@ export default class CardFlip extends Component<Props> {
         {
           toValue: {
             x: 0,
-            y: 90 + progress*90,
+            y: 99 + progress*99,
           },
           duration,
           useNativeDriver: true,
@@ -145,7 +145,7 @@ export default class CardFlip extends Component<Props> {
         {
           toValue: {
             x: 0,
-            y: 110 - progress*110 ,
+            y: 101 - progress*101 ,
           },
           duration,
           useNativeDriver: true,
