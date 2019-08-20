@@ -117,7 +117,55 @@ export default class CardFlip extends Component<Props> {
     ));
     Animated.sequence(sequence).start(); 
   }
+  jiggle2(customConfig = {}){
 
+    const defaultConfig = { count: 2, duration: 100, progress: 0.05 };
+    const config = { ...defaultConfig, ...customConfig}
+    const { count, duration, progress } = config;
+
+    const { rotation, side } = this.state;
+
+    const sequence = [];
+    for (let i = 0; i < count; i++){
+
+      sequence.push(Animated.timing(
+        rotation,
+        {
+          toValue: {
+            x: 0,
+            y: 90 + progress*90,
+          },
+          duration,
+          useNativeDriver: true,
+        }
+      ));
+
+      sequence.push(Animated.timing(
+        rotation,
+        {
+          toValue: {
+            x: 0,
+            y: 110 - progress*110 ,
+          },
+          duration,
+          useNativeDriver: true,
+        }
+      ));
+
+    }
+    sequence.push(Animated.timing(
+      rotation,
+      {
+        toValue: {
+          x: 0,
+          y: 100 ,
+        },
+        duration,
+        useNativeDriver: true,
+      }
+    ));
+    Animated.sequence(sequence).start();
+  }
   jiggle(customConfig = {}){
 
     const defaultConfig = { count: 2, duration: 100, progress: 0.05 };
